@@ -3,32 +3,38 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html lang="en">
+<html lang="is">
     <head>
         <meta charset="utf-8">
-        <title>Upload</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Icelandic Online</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700'>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-        <div class="container">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 text-center">
-                <h1>Upload media</h1>
-                <form method="POST" action="/uploadmedia" enctype="multipart/form-data" id="uploadForm">
-                    <div>File:<input type="file" name="files" id="files" multiple></div>
-                    <ul id="fileInfo"></ul>
-                    <button>Submit</button>
-                </form>
-                <p><a href="/searchmedia">search media</a></p>
+        <main class="container">
+            <div class="container-fluid">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <h1>Upload media</h1>
+                    <form method="POST" action="/uploadmedia" enctype="multipart/form-data" id="uploadForm">
+                        <div>File:<input type="file" name="files" id="files" multiple></div>
+                        <ul id="fileInfo"></ul>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </form>
+                    <p><a href="/searchmedia" class="btn btn-primary" role="button">Search Media</a></p>
+                </div>
+                <div class="col-md-4"></div>
             </div>
-            <div class="col-md-4"></div>
-        </div>
+        </main>
 
         <script>
+            'use strict';
             var storedFiles = [];
             var types = [];
             var ul = document.getElementById('fileInfo');
 
-            document.addEventListener("DOMContentLoaded", init, false);
+            document.addEventListener('DOMContentLoaded', init, false);
 
             function init() {
                 document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -52,8 +58,8 @@
                     ul.appendChild(div);
 
                     var name = file.name;
-                    var dotIndex = name.lastIndexOf(".");
-                    var type = dotIndex === -1 ? "jpg" : name.substring(dotIndex);
+                    var dotIndex = name.lastIndexOf('.');
+                    var type = dotIndex === -1 ? 'jpg' : name.substring(dotIndex);
                     li.textContent = name;
                     span.textContent = 'X';
                     types.push(type);
@@ -105,14 +111,14 @@
                 }
 
                 types = types.filter(Boolean);
-                for(var i=0, len=types.length; i<len; i++) {
-                    data.append('types[]', types[i]);
+                for(var j=0, len=types.length; j<len; j++) {
+                    data.append('types[]', types[j]);
                 }
 
                 // reset for new uploads
                 storedFiles = [];
                 types = [];
-                ul.textContent = "";
+                ul.textContent = '';
 
                 // Breyta þessu
                 data.append('type', 'image');
@@ -126,7 +132,7 @@
                     } else {
                         console.log('no go');
                     }
-                }
+                };
 
                 xmlhr.send(data);
             }
